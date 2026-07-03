@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+ <table class="table table-bordered table-striped" id="tbl">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Course</th>
+                <th>Number</th>
+                <th>Enquiry Date</th>
+                <th>Status</th>
+                <th>Mode</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+	
+	<tbody>
+	
+	 <tr th:each="student : ${list}">
+                <td th:text="${student.studentName}"></td>
+                <td th:text="${student.courseName}"></td>
+                <td th:text="${student.phno}"></td>
+                <td th:text="${student.createdDate}"></td>
+                <td th:text="${student.enquiryStatus}"></td>
+                <td th:text="${student.classMode}"></td>
+                <td>
+                   <a th:href="@{/edit(id=${student.enquiryId})}" class="btn btn-warning me-4">Edit</a>
+                   <a class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+	
+	
+	
+	
+	
+	</tbody>
+	
+	
+	</table>
+	
+	
+</body>
+</html>

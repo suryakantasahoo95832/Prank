@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bootstrap demo</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+	crossorigin="anonymous">
+
+<style>
+body {
+	background-color: #f8f9fa;
+}
+
+.performance-card {
+	max-width: 600px;
+	margin: 50px auto;
+	padding: 30px;
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.stat {
+	font-size: 1.5rem;
+	margin-bottom: 10px;
+}
+
+.stat-label {
+	font-weight: bold;
+}
+
+.stat-value {
+	float: right;
+}
+
+.enrolled {
+	color: green;
+}
+
+.lost {
+	color: red;
+}
+</style>
+
+
+</head>
+<body>
+	<!-- Navbar -->
+
+
+
+	<div class="container">
+
+		<nav class="navbar navbar-expand-lg"
+			style="background-color: #f2f2f2;">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#"><img alt=""
+					src="suryalogo.png " width="130" height="50"></a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" href="dashboard">Home</a></li>
+						<li class="nav-item"><a class="nav-link" href="enquiry">Add
+								Enquiry</a></li>
+
+						<li class="nav-item"><a class="nav-link" href="enquires">View
+								Enquires</a></li>
+
+					</ul>
+					<a href="/" class="btn btn-danger">Logout</a>
+				</div>
+			</div>
+		</nav>
+	</div>
+
+
+
+	<div class="container form-container">
+		<h3 class="text-center mb-4">Add Student Enquiry Here</h3>
+
+		<h3 th:text="${succmsg}" class="text-success"></h3>
+		<h3 th:text="${errmsg}" class="text-danger"></h3>
+
+
+
+		<form th:action="@{/add}" th:object="${enqForm}" method="POST">
+			<div class="row">
+				<div class="col-md-6">
+
+                    <input type="hidden" name="mode" th:value="${mode}" />
+
+					<div class="mb-3">
+						<label>Student Name</label> <input type="text"
+							th:field="*{studentName}" class="form-control"
+							placeholder="Enter name" required>
+					</div>
+
+					<input type="number" th:field="*{phno}" placeholder="Phone Number"
+						class="form-control" th:attr="readonly=${mode == 'edit'}" />
+
+
+					<div class="mb-3">
+						<label>Class Mode</label> <select th:field="*{classMode}"
+							class="form-select" required>
+							<option value="">--Select Mode--</option>
+							<option value="Online">Online</option>
+							<option value="Offline">Offline</option>
+						</select>
+					</div>
+
+					<div class="mb-3">
+						<label>Course</label> <select th:field="*{courseName}"
+							class="form-select" required>
+							<option value="">--Select Course--</option>
+							<option th:each="course:${courses}" th:value="${course}"
+								th:text="${course}"></option>
+
+						</select>
+					</div>
+
+					<div class="mb-3">
+
+						<label>Enquiry Status</label> <select th:field="*{enquiryStatus}"
+							class="form-select" required>
+							<option value="">--Select Status--</option>
+							<option th:each="status:${statuses}" th:value="${status}"
+								th:text="${status}"></option>
+
+						</select>
+
+
+
+					</div>
+
+					<button type="submit" class="btn btn-primary w-100">SUBMIT</button>
+
+
+
+				</div>
+
+				<div class="col-md-6 text-center">
+					<img alt="" src="admin.png">
+				</div>
+			</div>
+			  
+		</form>
+	</div>
+
+
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+		crossorigin="anonymous"></script>
+</body>
+</html>
