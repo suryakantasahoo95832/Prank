@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.surya.Binding.LoginForm;
@@ -23,6 +24,10 @@ public class UserServiceImpl implements UserService {
     EmailUtils email;
 	@Autowired
 	HttpSession session;
+	
+
+    @Value("${app.base-url}")
+    private String baseUrl;
 	
     private final PasswordUtils passwordUtils;
 
@@ -77,7 +82,7 @@ public class UserServiceImpl implements UserService {
 		body.append("<h1> Use bellow temporary passwod to unlock your account</h1>");
 		body.append("Temporary password : "+rndPass);
 		body.append("<br>");
-		body.append("<a href=\"http://localhost:8080/unlock?email="+to+"\">Click Here..</a>");
+		body.append("<a href=\"http://"+baseUrl+"/unlock?email="+to+"\">Click Here..</a>");
 		email.sendEmail(to, subject, body.toString());
 		
 	  
